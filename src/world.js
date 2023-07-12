@@ -1,4 +1,4 @@
-import { JsonDB } from "node_modules/node-json-db";
+import { JsonDB, Config } from "node-json-db";
 
 /*
 
@@ -8,12 +8,16 @@ import { JsonDB } from "node_modules/node-json-db";
 
 export default {
     saveWorldData: async function(blocks) {
-        db = new jsonDBJsonDB(new jsonDB.Config("World", true, true, "/"));
+        var db = new JsonDB(new Config("./public/World", true, true, "/"));
         
         // Store using ('/{x}/{y}/{z}', {data})
         var rawBlocksData = ("%s",blocks)
         var blockJson = JSON.parse(rawBlocksData);
         console.log(blockJson)
-        db.push((`/${blockJson.x}/${blockJson.y}/${blockJson.z}`), blockJson.blockName);
+        db.push((`/world/${blockJson.x},${blockJson.y},${blockJson.z}`), blockJson.blockName);
+    },
+
+    getBlockData: async function() {
+
     }
 }

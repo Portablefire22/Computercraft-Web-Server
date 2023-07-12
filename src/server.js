@@ -36,13 +36,15 @@ const port = 3000;
 
 
 const server = express();
-server.use(express.static('public'));
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+console.log(path.join(__dirname,'../public'));
+server.use(express.static(path.join(__dirname,'../public')));
 
 server.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname,'../views/index.html'))
+  res.sendFile(path.join(__dirname,'../index.html'))
 });
 
 server.listen(port, hostname, () => {
