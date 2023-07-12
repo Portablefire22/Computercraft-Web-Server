@@ -16,8 +16,4 @@ export default {
         console.log(blockJson)
         db.push((`/world/${blockJson.x},${blockJson.y},${blockJson.z}`), blockJson.blockName);
     },
-
-    getBlockData: async function() {
-
-    }
 }

@@ -15,30 +15,29 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 
-const geometry = new THREE.BoxGeometry(1,1,1);
 
 
+var light = new THREE.HemisphereLight(0x404040, 0xFFFFFF, 0.5);
+scene.add(light);
 
-//db = new JsonDB(new jsonDB.Config("World", true, true, "/"));
-//var worldData = await db.getData("/");
-//console.log(worldData);
+
+/* TODO
+
+  - USE A RENDER QUEUE TO STOP RENDERING A MESH WHILST IT IS ON THE SCREEN
+  - SHOW BLOCK NAME ON HOVER
+  - ALLOW INSPECTION OF INVENTORIES
+  
+*/
 
 camera.position.set( 0, 20, 100 );
 controls.update();
-/*
-const xhr = new XMLHttpRequest();
-    xhr.open("GET", "worldData");
-    xhr.send();
-    xhr.responseType = "json";
-    xhr.onload = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          const data = xhr.response;
-          console.log(data);
-        } else {
-          console.log(`Error: ${xhr.status}`);
-        }
-      };
-*/
+
+
+var material = new THREE.MeshBasicMaterial( {color: 0xFFD700 })
+var turtleGeometry = new THREE.BoxGeometry(0.5,0.5,0.5);
+var turtle = new THREE.Mesh(turtleGeometry, material);
+scene.add(turtle);
+
 updateWorld();
 var tick = 0
 function animate() {
@@ -47,6 +46,8 @@ function animate() {
     if (tick == 500) {
       tick = 0
       updateWorld();
+    } else if (scene.children.length >= 8000){
+      clearScene();
     }
     
     requestAnimationFrame( animate );
@@ -56,15 +57,23 @@ function animate() {
 function addVoxels(worldJson) {
     //console.log(Object.keys(worldJson).length);
     //console.log(worldJson);
-    
+    const geometry = new THREE.BoxGeometry(1,1,1);
     for (var block in worldJson.world) {
       if ((worldJson.world[block]) != "minecraft:air") {
         var coords = block.split(",")
         //console.log(coords);
-        if (worldJson.world[block].includes("ore")) {
+        
+        if (worldJson.world[block].includes("NULL")) {
           var material = new THREE.MeshBasicMaterial( {color: 0xFFD700 })
         } else {
-          var material = new THREE.MeshBasicMaterial( {color: 0x808080});
+          var blockName = worldJson.world[block].replace('minecraft:','');
+          const texture = new THREE.TextureLoader().load(`/textures/block/${blockName}.png`)
+          texture.wrapS = THREE.RepeatWrapping;
+          texture.wrapT = THREE.RepeatWrapping;
+          texture.repeat.set( 1, 1 );
+          var material = new THREE.MeshLambertMaterial( {map: texture});
+          material.transparent = true;
+          material.opacity = 0.5;
         }
         var cube = new THREE.Mesh(geometry, material);
         cube.position.x = coords[0];
@@ -72,6 +81,7 @@ function addVoxels(worldJson) {
         cube.position.z = coords[2];
         
         scene.add(cube);
+        objects.push(cube);
         //console.log(worldJson.world[block]); // Gets block name
       }
       
@@ -79,22 +89,41 @@ function addVoxels(worldJson) {
     
 }
 
+function moveTurtle(turtleJson){
+  turtle.position.x = turtleJson["Tester"].x;
+  turtle.position.y = turtleJson["Tester"].y;
+  turtle.position.z = turtleJson["Tester"].z;
+}
+
+function clearScene() {
+  for (var children of objects){
+    console.log(children);
+    children.removeFromParent();
+  }
+}
 
 function updateWorld() {
+  
   console.log("Updating Mesh");
-  for (var childMesh in scene.children) {
-    scene.remove(childMesh);
-  }
+  //console.log(scene.children);
+    
+  
+  var currentUrlTurtle = window.location.href + '/turtleInfo.json';
+  fetch(currentUrlTurtle)
+    .then((responseTurtle) => responseTurtle.json())
+    .then((turtleJson) => moveTurtle(turtleJson));
+
   var currentUrl = window.location.href + '/World.json';
   fetch(currentUrl)
     .then((response) => response.json())
     .then((json) => addVoxels(json));
+    
 }
 
 var blockColours = {
 
 }
 
-
+var objects = [ ];
 
 animate();

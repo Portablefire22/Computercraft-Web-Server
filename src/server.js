@@ -5,6 +5,7 @@ import express from 'express';
 import World from "./world.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
+import Turtle from './turtle.js';
 
 const ws = new WebSocketServer({
   port: 7071,
@@ -60,8 +61,10 @@ ws.on('connection', function connection(ws) {
   ws.on('message', function message(data) {
     console.log('received: %s', data);
     ws.send("Turtle successfully connected.");
-    if (!data.toString().includes("connected")) {
+    if (!data.toString().includes("connected") && data.toString().includes("minecraft:")) {
       World.saveWorldData(data);
+    } else if (!data.toString().includes("connected") && data.toString().includes("direction")) {
+      Turtle.saveTurtleData(data);
     }
   });
 });
