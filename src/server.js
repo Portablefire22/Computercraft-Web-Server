@@ -1,8 +1,10 @@
-const http = require('http');
-const { WebSocketServer } = require('ws');
-const { v4: uuidv4 } = require('uuid');
-
-const World = require("./world.js");
+import * as http from 'http';
+import { WebSocketServer } from 'ws';
+import { v4 } from 'uuid';
+import express from 'express';
+import World from "./world.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const ws = new WebSocketServer({
   port: 7071,
@@ -33,10 +35,14 @@ const port = 3000;
 
 
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+const server = express();
+server.use(express.static('public'));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+server.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname,'../views/index.html'))
 });
 
 server.listen(port, hostname, () => {
@@ -44,7 +50,7 @@ server.listen(port, hostname, () => {
 });
 
 ws.on('connection', function connection(ws) {
-  const id = uuidv4();
+  const id = v4();
   clients.set(ws, id);
   console.log(id);
   //ws.send(id);

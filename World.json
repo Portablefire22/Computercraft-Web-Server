@@ -1,3 +1,402 @@
 {
-    
+    "0": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:deepslate"
+        },
+        "2": {
+            "0": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:bedrock"
+        }
+    },
+    "1": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:deepslate"
+        }
+    },
+    "2": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air",
+            "-4": "minecraft:air",
+            "-5": "minecraft:air",
+            "-6": "minecraft:air",
+            "-7": "minecraft:air",
+            "-8": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:deepslate"
+        }
+    },
+    "3": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air",
+            "-4": "minecraft:air",
+            "-5": "minecraft:air",
+            "-6": "minecraft:air",
+            "-7": "minecraft:air",
+            "-8": "minecraft:air",
+            "-9": "minecraft:air",
+            "-10": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate",
+            "-1": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-5": "minecraft:deepslate",
+            "-6": "minecraft:deepslate",
+            "-7": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-9": "minecraft:deepslate_gold_ore"
+        },
+        "-2": {
+            "0": "minecraft:deepslate",
+            "-1": "minecraft:bedrock",
+            "-2": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-5": "minecraft:deepslate",
+            "-6": "minecraft:bedrock",
+            "-7": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-9": "minecraft:deepslate"
+        }
+    },
+    "4": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air",
+            "-4": "minecraft:air",
+            "-5": "minecraft:air",
+            "-6": "minecraft:air",
+            "-7": "minecraft:air",
+            "-8": "minecraft:air",
+            "-9": "minecraft:deepslate",
+            "-10": "minecraft:deepslate"
+        }
+    },
+    "5": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-9": "minecraft:air",
+            "-11": "minecraft:deepslate",
+            "-8": "minecraft:air",
+            "-10": "minecraft:air",
+            "-7": "minecraft:air",
+            "-6": "minecraft:air",
+            "-5": "minecraft:air",
+            "-4": "minecraft:air",
+            "-3": "minecraft:air",
+            "-2": "minecraft:air",
+            "-1": "minecraft:air"
+        }
+    },
+    "6": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-9": "minecraft:air",
+            "-8": "minecraft:air",
+            "-7": "minecraft:air",
+            "-6": "minecraft:air",
+            "-5": "minecraft:air",
+            "-4": "minecraft:air",
+            "-3": "minecraft:air",
+            "-2": "minecraft:air",
+            "-1": "minecraft:deepslate"
+        },
+        "2": {
+            "0": "minecraft:deepslate",
+            "-10": "minecraft:deepslate",
+            "-9": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-7": "minecraft:deepslate",
+            "-6": "minecraft:deepslate",
+            "-5": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-1": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:deepslate",
+            "-10": "minecraft:deepslate",
+            "-9": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-7": "minecraft:deepslate",
+            "-6": "minecraft:deepslate",
+            "-5": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-3": "minecraft:bedrock",
+            "-2": "minecraft:deepslate",
+            "-1": "minecraft:deepslate"
+        }
+    },
+    "7": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-11": "minecraft:deepslate",
+            "-10": "minecraft:deepslate",
+            "-9": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-7": "minecraft:deepslate",
+            "-6": "minecraft:deepslate",
+            "-5": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-1": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:deepslate"
+        }
+    },
+    "8": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air",
+            "-4": "minecraft:air",
+            "-5": "minecraft:air",
+            "-6": "minecraft:air",
+            "-7": "minecraft:air",
+            "-8": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:deepslate"
+        }
+    },
+    "9": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air",
+            "-4": "minecraft:air",
+            "-5": "minecraft:air",
+            "-6": "minecraft:air",
+            "-7": "minecraft:air",
+            "-8": "minecraft:air",
+            "-9": "minecraft:air",
+            "-10": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate",
+            "-1": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-5": "minecraft:deepslate",
+            "-6": "minecraft:deepslate",
+            "-7": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-9": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:bedrock",
+            "-1": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-5": "minecraft:bedrock",
+            "-6": "minecraft:deepslate",
+            "-7": "minecraft:bedrock",
+            "-8": "minecraft:deepslate",
+            "-9": "minecraft:deepslate"
+        }
+    },
+    "10": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:deepslate",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air",
+            "-4": "minecraft:air",
+            "-5": "minecraft:air",
+            "-6": "minecraft:air",
+            "-7": "minecraft:air",
+            "-8": "minecraft:air",
+            "-9": "minecraft:deepslate",
+            "-10": "minecraft:deepslate"
+        }
+    },
+    "11": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-9": "minecraft:air",
+            "-11": "minecraft:deepslate",
+            "-8": "minecraft:air",
+            "-10": "minecraft:air",
+            "-7": "minecraft:air",
+            "-6": "minecraft:air",
+            "-5": "minecraft:air",
+            "-4": "minecraft:air",
+            "-3": "minecraft:air",
+            "-2": "minecraft:air",
+            "-1": "minecraft:air"
+        }
+    },
+    "12": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-9": "minecraft:air",
+            "-8": "minecraft:air",
+            "-7": "minecraft:air",
+            "-6": "minecraft:air",
+            "-5": "minecraft:air",
+            "-4": "minecraft:air",
+            "-3": "minecraft:air",
+            "-2": "minecraft:air",
+            "-1": "minecraft:deepslate"
+        },
+        "2": {
+            "0": "minecraft:deepslate",
+            "-10": "minecraft:deepslate",
+            "-9": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-7": "minecraft:deepslate",
+            "-6": "minecraft:deepslate",
+            "-5": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-1": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:bedrock",
+            "-10": "minecraft:bedrock",
+            "-9": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-7": "minecraft:bedrock",
+            "-6": "minecraft:bedrock",
+            "-5": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-1": "minecraft:deepslate"
+        }
+    },
+    "13": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-11": "minecraft:deepslate",
+            "-10": "minecraft:deepslate",
+            "-9": "minecraft:deepslate",
+            "-8": "minecraft:deepslate",
+            "-7": "minecraft:deepslate",
+            "-6": "minecraft:deepslate",
+            "-5": "minecraft:deepslate",
+            "-4": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-1": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:deepslate"
+        }
+    },
+    "14": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:deepslate"
+        }
+    },
+    "15": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air",
+            "-4": "minecraft:air",
+            "-5": "minecraft:air",
+            "-6": "minecraft:air"
+        },
+        "2": {
+            "0": "minecraft:deepslate",
+            "-1": "minecraft:deepslate",
+            "-2": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-4": "minecraft:deepslate"
+        },
+        "-2": {
+            "0": "minecraft:deepslate",
+            "-1": "minecraft:bedrock",
+            "-2": "minecraft:deepslate",
+            "-3": "minecraft:deepslate",
+            "-4": "minecraft:deepslate"
+        }
+    },
+    "16": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:deepslate",
+            "-1": "minecraft:air",
+            "-2": "minecraft:air",
+            "-3": "minecraft:air",
+            "-4": "minecraft:air",
+            "-5": "minecraft:deepslate",
+            "-6": "minecraft:deepslate"
+        }
+    },
+    "-1": {
+        "0": {
+            "0": "minecraft:air",
+            "1": "minecraft:air",
+            "-1": "minecraft:air"
+        }
+    }
 }
