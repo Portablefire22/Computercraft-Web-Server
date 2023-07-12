@@ -2,6 +2,8 @@ const http = require('http');
 const { WebSocketServer } = require('ws');
 const { v4: uuidv4 } = require('uuid');
 
+const World = require("./world.js");
+
 const ws = new WebSocketServer({
   port: 7071,
   perMessageDeflate: {
@@ -50,6 +52,9 @@ ws.on('connection', function connection(ws) {
   ws.on('message', function message(data) {
     console.log('received: %s', data);
     ws.send("Turtle successfully connected.");
+    if (!data.toString().includes("connected")) {
+      World.saveWorldData(data);
+    }
   });
 });
 
