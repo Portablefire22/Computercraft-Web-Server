@@ -26,28 +26,31 @@ scene.add(light);
   - USE A RENDER QUEUE TO STOP RENDERING A MESH WHILST IT IS ON THE SCREEN
   - SHOW BLOCK NAME ON HOVER
   - ALLOW INSPECTION OF INVENTORIES
-  
+
 */
 
 camera.position.set( 0, 20, 100 );
 controls.update();
-
+var previousWorld = {}
 
 var material = new THREE.MeshBasicMaterial( {color: 0xFFD700 })
 var turtleGeometry = new THREE.BoxGeometry(0.5,0.5,0.5);
 var turtle = new THREE.Mesh(turtleGeometry, material);
 scene.add(turtle);
 
+var currentUrl = window.location.href + '/World.json';
+  fetch(currentUrl)
+    .then((response) => response.json())
+    .then((json) => previousWorld = json);
+
 updateWorld();
 var tick = 0
 function animate() {
     tick ++;
     //console.log(tick);
-    if (tick == 500) {
+    if (tick == 100) {
       tick = 0
       updateWorld();
-    } else if (scene.children.length >= 8000){
-      clearScene();
     }
     
     requestAnimationFrame( animate );
@@ -59,32 +62,42 @@ function addVoxels(worldJson) {
     //console.log(worldJson);
     const geometry = new THREE.BoxGeometry(1,1,1);
     for (var block in worldJson.world) {
-      if ((worldJson.world[block]) != "minecraft:air") {
-        var coords = block.split(",")
-        //console.log(coords);
-        
-        if (worldJson.world[block].includes("NULL")) {
-          var material = new THREE.MeshBasicMaterial( {color: 0xFFD700 })
-        } else {
-          var blockName = worldJson.world[block].replace('minecraft:','');
-          const texture = new THREE.TextureLoader().load(`/textures/block/${blockName}.png`)
-          texture.wrapS = THREE.RepeatWrapping;
-          texture.wrapT = THREE.RepeatWrapping;
-          texture.repeat.set( 1, 1 );
-          var material = new THREE.MeshLambertMaterial( {map: texture});
-          material.transparent = true;
-          material.opacity = 0.5;
+      if ( !scene.getObjectByName(`${block}`) ) {
+        if ((worldJson.world[block]) != "minecraft:air") {
+          var coords = block.split(",")
+          //console.log(coords);
+          
+          if (worldJson.world[block].includes("NULL")) {
+            var material = new THREE.MeshBasicMaterial( {color: 0xFFD700 })
+          } else {
+            var blockName = worldJson.world[block].replace('minecraft:','');
+            //console.log(blockName);
+            var texture = new THREE.TextureLoader().load(`/textures/block/${blockName}.png`)
+            
+            if (blockName == "lava" || blockName == "water") {
+              texture = new THREE.TextureLoader().load(`/textures/block/${blockName}_still.png`)
+            } else {
+              texture = new THREE.TextureLoader().load(`/textures/block/${blockName}.png`)
+            }
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set( 1, 1 );
+            var material = new THREE.MeshLambertMaterial( {map: texture});
+            material.transparent = true;
+            material.opacity = 0.5;
+          }
+          var cube = new THREE.Mesh(geometry, material);
+          cube.position.x = coords[0];
+          cube.position.y = coords[1];
+          cube.position.z = coords[2];
+          
+          cube.name = `${block}`;
+          scene.add(cube);
+          objects.push(cube);
+          //console.log(worldJson.world[block]); // Gets block name
         }
-        var cube = new THREE.Mesh(geometry, material);
-        cube.position.x = coords[0];
-        cube.position.y = coords[1];
-        cube.position.z = coords[2];
         
-        scene.add(cube);
-        objects.push(cube);
-        //console.log(worldJson.world[block]); // Gets block name
       }
-      
     }
     
 }
@@ -97,7 +110,7 @@ function moveTurtle(turtleJson){
 
 function clearScene() {
   for (var children of objects){
-    console.log(children);
+    //console.log(children);
     children.removeFromParent();
   }
 }

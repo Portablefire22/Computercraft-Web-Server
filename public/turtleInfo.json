@@ -1,9 +1,9 @@
 {
     "Tester": {
-        "x": 56,
+        "x": 14,
         "y": -1,
-        "z": -1,
+        "z": -3,
         "direction": 0,
-        "tunnelsComplete": 7
+        "tunnelsComplete": 1
     }
 }
