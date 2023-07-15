@@ -29,13 +29,35 @@ import { JsonDB, Config } from "node-json-db";
 
 export default {
     // Save the data from a chest using a numerical chest ID
-    saveInventoryData: async function() {
+    saveInventoryData: async function(data) {
         var db = new JsonDB(new Config("./public/itemStorage", true, true, "/"));
         
-        // Store using ('/{x}/{y}/{z}', {data})
-        var rawBlocksData = ("%s",blocks)
-        var blockJson = JSON.parse(rawBlocksData);
-        console.log(blockJson)
-        db.push((`/Chest/${chestId}`), );
+        var rawStorageData = data.toString();
+        var storageJson = JSON.parse(rawStorageData);
+        console.log(storageJson)
+        db.push((`/ChestSystem/${chestId}/`), );
     },
+
+    // Handles the commands for storage
+    // Syntax:
+    // ${TURTLE_LABEL}:${TYPE}:${COMMAND}:${DATA}
+    commandHandler: async function(data) {
+        try{
+            switch (data[2]) {
+                case "SAVE":
+                    this.saveInventoryData(data);
+                    break;
+                case "FIND":
+                    break;
+                case "STORE":
+                    break;
+                default:
+                    console.log(`Unable to determine ${data[2]} from ${data}`);
+                    break;
+            }
+        } catch (error) {
+            console.log(data);
+            console.error(error);
+        }
+    }
 }

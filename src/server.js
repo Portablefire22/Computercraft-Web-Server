@@ -6,6 +6,7 @@ import World from "./world.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import Turtle from './turtle.js';
+import fileStorage from './fileStorage.js';
 
 const ws = new WebSocketServer({
   port: 7071,
@@ -60,10 +61,10 @@ ws.on('connection', function connection(ws) {
   GENERAL:
     ${TURTLE_LABEL}:${TYPE}:${DATA}
   */
-  ws.on('message', function message(data) {
+  ws.on('message', async function message(data) {
     var splitData = data.toString();
     console.log(splitData);
-    splitData = splitData.split(":");
+    splitData = splitData.split(".");
     console.log(splitData);
     try {
       switch (splitData[1].toString().toUpperCase() ){
@@ -71,10 +72,15 @@ ws.on('connection', function connection(ws) {
           World.saveWorldData(splitData[2]);
           break;
         case "POSITION":
-          Turtle.saveTurtleData(splitData[2],splitData[0]);
+          if (splitData[2].toString().toUpperCase() == "GET"){
+            var posData = await Turtle.getTurtleData(splitData[0]);
+            ws.send(`${posData}`);
+          } else if (splitData[2].toString().toUpperCase() == "POST") {
+            Turtle.saveTurtleData(splitData[3],splitData[0]);
+          }
           break;
         case "STORAGE":
-          console.log("Not implemented yet :3");
+          fileStorage.commandHandler(data);
           break;
         case "CONNECTION":
           turtles.push([splitData[0],id]);

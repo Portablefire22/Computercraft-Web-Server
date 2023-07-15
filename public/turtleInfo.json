@@ -5,5 +5,12 @@
         "z": -3,
         "direction": 0,
         "tunnelsComplete": 1
+    },
+    "Librarian": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "direction": 0,
+        "tunnelsComplete": 0
     }
 }
