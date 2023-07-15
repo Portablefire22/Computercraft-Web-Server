@@ -28,6 +28,7 @@ import { JsonDB, Config } from "node-json-db";
 */ 
 
 export default {
+    // Save the data from a chest using a numerical chest ID
     saveInventoryData: async function() {
         var db = new JsonDB(new Config("./public/itemStorage", true, true, "/"));
         

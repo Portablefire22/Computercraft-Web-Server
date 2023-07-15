@@ -55,20 +55,43 @@ server.listen(port, hostname, () => {
 ws.on('connection', function connection(ws) {
   const id = v4();
   clients.set(ws, id);
-  console.log(id);
-  //ws.send(id);
-
+  /* 
+  MESSAGE FORMAT
+  GENERAL:
+    ${TURTLE_LABEL}:${TYPE}:${DATA}
+  */
   ws.on('message', function message(data) {
-    console.log('received: %s', data);
-    ws.send("Turtle successfully connected.");
-    if (!data.toString().includes("connected") && data.toString().includes("minecraft:")) {
-      World.saveWorldData(data);
-    } else if (!data.toString().includes("connected") && data.toString().includes("direction")) {
-      Turtle.saveTurtleData(data);
+    var splitData = data.toString();
+    console.log(splitData);
+    splitData = splitData.split(":");
+    console.log(splitData);
+    try {
+      switch (splitData[1].toString().toUpperCase() ){
+        case "BLOCK":
+          World.saveWorldData(splitData[2]);
+          break;
+        case "POSITION":
+          Turtle.saveTurtleData(splitData[2],splitData[0]);
+          break;
+        case "STORAGE":
+          console.log("Not implemented yet :3");
+          break;
+        case "CONNECTION":
+          turtles.push([splitData[0],id]);
+          ws.send(`Turtle '${splitData[0]}' added.`);
+          console.log(turtles);
+          break;
+        default:
+          console.log(`MESSAGE TYPE ${splitData[1]} NOT FOUND!`);
+          break;
+      }
+    }
+    catch (error) {
+      console.log(`"${splitData}" caused an error`);
+      console.error(error);
     }
   });
 });
 
-
-
+var turtles = []
 ws.on('error', console.error);

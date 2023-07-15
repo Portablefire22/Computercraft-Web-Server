@@ -7,7 +7,7 @@ import { JsonDB, Config } from "node-json-db";
 */
 
 export default {
-    saveTurtleData: async function(turtle) {
+    saveTurtleData: async function(turtle,turtleID) {
         var db = new JsonDB(new Config("./public/turtleInfo", true, true, "/"));
         
         // Store using ('/{x}/{y}/{z}', {data})
