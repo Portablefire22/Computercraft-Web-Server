@@ -80,7 +80,7 @@ ws.on('connection', function connection(ws) {
           }
           break;
         case "STORAGE":
-          fileStorage.commandHandler(data);
+          fileStorage.commandHandler(splitData[2],splitData[3]);
           break;
         case "CONNECTION":
           turtles.push([splitData[0],id]);
