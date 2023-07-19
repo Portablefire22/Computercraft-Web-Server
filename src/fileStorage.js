@@ -34,7 +34,17 @@ export default {
         try {
             var rawStorageData = data.toString();
             var storageJson = JSON.parse(rawStorageData);
-            db.push((`/ChestSystem/${storageJson.x},${storageJson.y},${storageJson.z}/`), storageJson.contents);
+            var slotsUsed = 0;
+    
+            var filtered = storageJson.contents.filter(function (el) {
+                return el != null;
+            });
+
+            var storageInformation = {
+                freeSlots: 54 - filtered.length,
+                contents: storageJson.contents,
+            }
+            db.push((`/ChestSystem/${storageJson.x},${storageJson.y},${storageJson.z}/`), storageInformation);
         } catch(error) {
             console.log(data);
             console.error(error);
