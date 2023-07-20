@@ -27,10 +27,12 @@ function test(storageJson) {
 }
 
 function displayItems(storageJson) {
-  document.getElementById("Storage System Header").innerHTML = `${Object.keys(storageJson)[0]}`;
+  document.getElementById("Storage System Header").innerHTML = `
+  ${Object.keys(storageJson)[0]}`;
   const slotSpace = document.getElementById("slotSpace");
   slotSpace.innerHTML = "";
   var slotnum = 0;
+  var chests = 0;
   for (var key in storageJson.ChestSystem) {
     //console.log(storageJson.ChestSystem[key].contents);
     for (var item of storageJson.ChestSystem[key].contents){
@@ -55,7 +57,9 @@ function displayItems(storageJson) {
       </div>`
       slotnum++;
     }
+    chests++;
   }
+  document.getElementById("Storage System Header").innerHTML += `  ${slotnum}/${chests*54}`
 }
 
 function pageRefresh() {  
