@@ -27,6 +27,7 @@ function test(storageJson) {
 }
 
 function displayItems(storageJson) {
+  document.getElementById("Storage System Header").innerHTML = `${Object.keys(storageJson)[0]}`;
   const slotSpace = document.getElementById("slotSpace");
   slotSpace.innerHTML = "";
   var slotnum = 0;
