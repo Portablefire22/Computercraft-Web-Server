@@ -35,6 +35,7 @@ const clients = new Map();
 const hostname = '127.0.0.1';
 const port = 3000;
 
+var client = null; // This refreshes the page
 
 
 const server = express();
@@ -56,6 +57,30 @@ server.get('/storage', (req,res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+server.get('/subscribe', (req, res) => {
+  // send headers to keep connection alive
+  const headers = {
+    'Content-Type': 'text/event-stream',
+    'Connection': 'keep-alive',
+    'Cache-Control': 'no-cache'
+  };
+  res.writeHead(200, headers);
+
+  // send client a simple response
+  res.write('you are subscribed\n\n');
+
+  // store `res` of client to let us send events at will
+  client = res;
+
+  // listen for client 'close' requests
+  req.on('close', () => { client = null; });
+});
+
+function sendRefresh() {
+  client.write('data: refresh\n\n');
+}
+
 
 ws.on('connection', function connection(ws) {
   const id = v4();
@@ -84,7 +109,9 @@ ws.on('connection', function connection(ws) {
           }
           break;
         case "STORAGE":
-          fileStorage.commandHandler(splitData[2],splitData[3]);
+          if (fileStorage.commandHandler(splitData[2],splitData[3])) {
+            sendRefresh();
+          }
           break;
         case "CONNECTION":
           turtles.push([splitData[0],id]);

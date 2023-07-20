@@ -59,7 +59,7 @@ export default {
             switch (command) {
                 case "SAVE":
                     this.saveInventoryData(data);
-                    break;
+                    return true;
                 case "FIND":
                     break;
                 case "STORE":
