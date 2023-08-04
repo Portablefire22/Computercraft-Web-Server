@@ -83,51 +83,53 @@ function sendRefresh() {
 
 
 ws.on('connection', function connection(ws) {
-  const id = v4();
-  clients.set(ws, id);
+
+    const id = v4();
+    clients.set(ws, id);
   /* 
   MESSAGE FORMAT
   GENERAL:
     ${TURTLE_LABEL}:${TYPE}:${DATA}
   */
-  ws.on('message', async function message(data) {
-    var splitData = data.toString();
-    console.log(splitData);
-    splitData = splitData.split(".");
-    console.log(splitData);
-    try {
-      switch (splitData[1].toString().toUpperCase() ){
-        case "BLOCK":
-          World.saveWorldData(splitData[2]);
-          break;
-        case "POSITION":
-          if (splitData[2].toString().toUpperCase() == "GET"){
-            var posData = await Turtle.getTurtleData(splitData[0]);
-            ws.send(`${posData}`);
-          } else if (splitData[2].toString().toUpperCase() == "POST") {
-            Turtle.saveTurtleData(splitData[3],splitData[0]);
-          }
-          break;
-        case "STORAGE":
-          if (fileStorage.commandHandler(splitData[2],splitData[3])) {
-            sendRefresh();
-          }
-          break;
-        case "CONNECTION":
-          turtles.push([splitData[0],id]);
-          ws.send(`Turtle '${splitData[0]}' added.`);
-          console.log(turtles);
-          break;
-        default:
-          console.log(`MESSAGE TYPE ${splitData[1]} NOT FOUND!`);
-          break;
-      }
-    }
-    catch (error) {
-      console.log(`"${splitData}" caused an error`);
-      console.error(error);
-    }
-  });
+    ws.on('message', async function message(data) {
+        var splitData = data.toString();
+        console.log(splitData);
+        splitData = splitData.split(".");
+        console.log(splitData);
+        try {
+            switch (splitData[1].toString().toUpperCase() ){
+                case "BLOCK":
+                    World.saveWorldData(splitData[2]);
+                    break;
+                case "POSITION":
+                    if (splitData[2].toString().toUpperCase() == "GET"){
+                        var posData = await Turtle.getTurtleData(splitData[0]);
+                        ws.send(`${posData}`);
+                    } else if (splitData[2].toString().toUpperCase() == "POST") {
+                        Turtle.saveTurtleData(splitData[3],splitData[0]);
+                    }
+                    break;
+                case "STORAGE":
+                    if (splitData.length >= 3) {
+                        fileStorage.commandHandler(splitData[2], [splitData[3], splitData[4]]);
+                    }
+                    sendRefresh();
+                    break;
+                case "CONNECTION":
+                    turtles.push([splitData[0],id]);
+                    ws.send(`Turtle '${splitData[0]}' added.`);
+                    console.log(turtles);
+                    break;
+                default:
+                console.log(`MESSAGE TYPE ${splitData[1]} NOT FOUND!`);
+                break;
+            }
+        }
+        catch (error) {
+            console.log(`"${splitData}" caused an error`);
+            console.error(error);
+        }
+    });
 });
 
 var turtles = []
