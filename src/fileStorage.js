@@ -1,6 +1,7 @@
 import { JsonDB, Config } from "node-json-db";
 import 'fs';
 import { readFileSync } from "fs";
+import { argv0 } from "process";
 
 /*
 
@@ -54,33 +55,44 @@ export default {
         }
     },
 
-  // Locates the chest that contains the given item
-  // Syntax: 
-  // ${ITEM}.${AMOUNT}
-  locateItem: async function(data) {
-        var rawChestData = readFileSync('./public/itemStorage.json');
-        var chestJson = JSON.parse(rawChestData); 
-        var chestCoords = {x:0,y:0,z:0};
-        var pathFinderArgs = { coords: chestCoords, wantedItem: data[0], itemAmount: data[1]  };
-        console.log(chestJson);
-        Object.entries(chestJson.ChestSystem).forEach((entry) => {
-            const [currentChestCoord, value] = entry;
-            Object.entries(value.contents).forEach((tmp) => {
-                const [freeSlots, slotContent] = tmp;
-                if (JSON.stringify(slotContent.name) == data[0]) {
-                    console.log()
-                }
-            }); 
-        });
-        return pathFinderArgs;
-  },
-  
-  // Determines the path for the turtle to take to get to the chest 
-  // Syntax:
-  // ${CHEST_COORDS}.${WANTED_ITEM}.${ITEM_AMOUNTS}
-  pathFind: async function(data) {
+      // Locates the chest that contains the given item
+      // Syntax: 
+      // ${ITEM}.${AMOUNT}
+      locateItem: async function(data) {
+            var rawChestData = readFileSync('./public/itemStorage.json');
+            var chestJson = JSON.parse(rawChestData); 
+            var chestCoords = {x:0,y:0,z:0};
+            //var pathFinderArgs = { coords: chestCoords, wantedItem: data[0], itemAmount: data[1]  };
+            var neededItems = data[1]; 
+            var pathFinderArgs = { chestInfo: [], wantedItem: data[0]}
+            Object.entries(chestJson.ChestSystem).forEach((entry) => {
+                const [currentChestCoord, value] = entry;
+                Object.entries(value.contents).forEach((tmp) => {
+                    const [_freeSlots, slotContent] = tmp;
+                    //console.log(`${slotContent.name} == ${data[0]} ${slotContent.name == data[0]}`)
+                    if (slotContent.name == data[0]) {
+                        while (true) {
+                            let coords = currentChestCoord.split(",");
+                            chestCoords = {x: coords[0], y: coords[1], z: coords[2]}
+                            var tmp = data[1] - slotContent.count;
+                            if (tmp <= 0) {
+                                break;
+                            } else {
+                                
+                            }
+                        }
+                    }
+                }); 
+            });
+            return pathFinderArgs;
+      },
+      
+      // Determines the path for the turtle to take to get to the chest 
+      // Syntax:
+      // ${CHEST_COORDS}.${WANTED_ITEM}.${ITEM_AMOUNTS}
+      pathFind: async function(data) {
 
-  },
+      },
 
     // Handles the commands for storage
     // Syntax:
