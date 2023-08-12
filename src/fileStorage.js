@@ -38,7 +38,7 @@ export default {
             var storageJson = JSON.parse(rawStorageData);
             
             for (var i in Object.keys(storageJson.contents)) {
-                storageJson.contents[i].slot = i;
+                storageJson.contents[i].slot = parseInt(i);
             } 
             var filtered = storageJson.contents.filter(function (el) {
                 return el != null;
@@ -58,41 +58,48 @@ export default {
       // Locates the chest that contains the given item
       // Syntax: 
       // ${ITEM}.${AMOUNT}
-      locateItem: async function(data) {
-            var rawChestData = readFileSync('./public/itemStorage.json');
-            var chestJson = JSON.parse(rawChestData); 
-            var chestCoords = {x:0,y:0,z:0};
-            //var pathFinderArgs = { coords: chestCoords, wantedItem: data[0], itemAmount: data[1]  };
-            var neededItems = data[1]; 
-            var pathFinderArgs = { chestInfo: [], wantedItem: data[0]}
-            Object.entries(chestJson.ChestSystem).forEach((entry) => {
-                const [currentChestCoord, value] = entry;
+    locateItem: async function(data) {
+        var rawChestData = readFileSync('./public/itemStorage.json');
+        var chestJson = JSON.parse(rawChestData); 
+        var chestCoords = {x:0,y:0,z:0};
+        //var pathFinderArgs = { coords: chestCoords, wantedItem: data[0], itemAmount: data[1]  };
+        var pathFinderArgs = { chestInfo: [], wantedItem: data[0]}
+        var requiredAmount = data[1];
+        Object.entries(chestJson.ChestSystem).forEach((entry) => {
+            const [currentChestCoord, value] = entry;
+            if (requiredAmount > 0) {
                 Object.entries(value.contents).forEach((tmp) => {
                     const [_freeSlots, slotContent] = tmp;
                     //console.log(`${slotContent.name} == ${data[0]} ${slotContent.name == data[0]}`)
-                    if (slotContent.name == data[0]) {
-                        while (true) {
-                            let coords = currentChestCoord.split(",");
-                            chestCoords = {x: coords[0], y: coords[1], z: coords[2]}
-                            var tmp = data[1] - slotContent.count;
-                            if (tmp <= 0) {
-                                break;
-                            } else {
-                                
-                            }
+                    if (slotContent.name == data[0] && requiredAmount > 0) {
+                        let coords = currentChestCoord.split(",");
+                        chestCoords = {x: coords[0], y: coords[1], z: coords[2]}
+                        var temp = requiredAmount - slotContent.count;
+                        console.log(`required: ${requiredAmount}`)
+                        var itemsToTake;
+                        // If the slot has more than needed.
+                        if (temp <= 0) {
+                            itemsToTake = requiredAmount;
+                            requiredAmount = 0;
+                        } else { // If the slot has less than needed.
+                            itemsToTake = slotContent.count;
+                            requiredAmount = temp;
                         }
+                        var itemInfo = [chestCoords,slotContent.slot, itemsToTake];
+                        pathFinderArgs.chestInfo.push(itemInfo);
                     }
-                }); 
-            });
-            return pathFinderArgs;
-      },
+                });
+            }
+        });
+        return pathFinderArgs;
+    },
       
-      // Determines the path for the turtle to take to get to the chest 
-      // Syntax:
-      // ${CHEST_COORDS}.${WANTED_ITEM}.${ITEM_AMOUNTS}
-      pathFind: async function(data) {
-
-      },
+    // Determines the path for the turtle to take to get to the chest 
+    // Syntax:
+    // ${CHEST_COORDS}.${WANTED_ITEM}.${ITEM_AMOUNTS}
+    pathFind: async function(data) {
+        console.log(data);
+    },
 
     // Handles the commands for storage
     // Syntax:
@@ -110,7 +117,7 @@ export default {
                     break;
                 case "RETRIEVE":
                     console.log(data);
-                    this.pathFind(this.locateItem(data));
+                    this.pathFind(await this.locateItem(data));
                     break;
                 case "STORE":
                     break;

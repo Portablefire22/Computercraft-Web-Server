@@ -78,7 +78,12 @@ server.get('/subscribe', (req, res) => {
 });
 
 function sendRefresh() {
-  client.write('data: refresh\n\n');
+    try {
+        client.write('data: refresh\n\n');
+    } catch (error) {
+        console.log("NO CLIENTS CONNECTED");
+        console.error(error);
+    }
 }
 
 
