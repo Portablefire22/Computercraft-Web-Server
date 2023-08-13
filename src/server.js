@@ -115,8 +115,12 @@ ws.on('connection', function connection(ws) {
                     }
                     break;
                 case "STORAGE":
+                    var returnedData = null;
                     if (splitData.length >= 3) {
-                        fileStorage.commandHandler(splitData[2], [splitData[3], splitData[4]]);
+                        returnedData = await fileStorage.commandHandler(splitData[2], [splitData[3], splitData[4]]);
+                        console.log(returnedData);
+                    } if (returnedData != null) {
+                        ws.send(`${JSON.stringify(returnedData)}`);
                     }
                     sendRefresh();
                     break;

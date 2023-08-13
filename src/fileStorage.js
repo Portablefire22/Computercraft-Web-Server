@@ -95,10 +95,32 @@ export default {
     },
       
     // Determines the path for the turtle to take to get to the chest 
+    // When given a coordinate, the turtle can navigate to the point then move onto
+    // the next node.
+    //
+    // Turtle can move to the given nodes.
     // Syntax:
-    // ${CHEST_COORDS}.${WANTED_ITEM}.${ITEM_AMOUNTS}
-    pathFind: async function(data) {
+    // [${chestCoords},${slot},${amountToTake}]
+    nodeGeneration: async function(data) {
+       var path = {};
         console.log(data);
+        // For now lets just assume it's a two dimensional chest system.
+        // In a 2d chest system, the chest coordinate can just be passed.
+        // In a 3D system, nodes will be used to turn around in the system.
+        //
+        // I just want a working system to then build up from.
+        console.log(data.chestInfo.length);
+        for (var i = 0; i < data.chestInfo.length; i++) {
+            console.log(`Info to add ${data.chestInfo[i][0]}`);
+            path[i] = {
+                x: data.chestInfo[i][0].x,
+                y: data.chestInfo[i][0].y,
+                z: data.chestInfo[i][0].z,
+                itemSlot: data.chestInfo[i][1],
+                itemsToTake: data.chestInfo[i][2],
+            };
+        } 
+        return path;
     },
 
     // Handles the commands for storage
@@ -117,8 +139,7 @@ export default {
                     break;
                 case "RETRIEVE":
                     console.log(data);
-                    this.pathFind(await this.locateItem(data));
-                    break;
+                    return this.nodeGeneration(await this.locateItem(data));
                 case "STORE":
                     break;
                 default:
